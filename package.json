@@ -1,0 +1,97 @@
+{
+  "name": "jarvis-public",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "description": "J.A.R.V.I.S. - a voice assistant for Windows, powered by the Gemini Live API",
+  "author": "sidthelegend8-spec",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "vite build",
+    "build:server": "esbuild server.ts --bundle --platform=node --target=node20 --format=cjs --external:vite --external:playwright-core --outfile=dist-server/server.cjs",
+    "build:all": "npm run build && npm run build:server",
+    "electron": "npm run build:all && electron .",
+    "dist": "npm run build:all && electron-builder",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit",
+    "mock:mcp": "node tools/mock-mcp-server.mjs",
+    "test:skills": "tsx tools/test-skills.ts",
+    "test:mcp": "tsx tools/test-mcp-builtins.ts",
+    "test:speak": "tsx tools/test-speak.ts",
+    "test:microphone": "tsx tools/test-microphone.ts",
+    "test:live": "tsx tools/test-live-models.ts",
+    "test:research": "tsx tools/test-research.ts",
+    "test": "npm run lint && npm run test:live && npm run test:research && npm run test:skills && npm run test:mcp && npm run test:speak"
+  },
+  "devDependencies": {
+    "@google/genai": "^1.44.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/express": "^4.17.25",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^5.0.4",
+    "autoprefixer": "^10.4.21",
+    "dotenv": "^17.3.1",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.24.0",
+    "express": "^4.22.1",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "open": "^11.0.0",
+    "playwright-core": "^1.62.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0",
+    "zod": "^4.4.3"
+  },
+  "build": {
+    "appId": "com.sidthelegend8.jarvis-public",
+    "productName": "JARVIS-Public",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*"
+    ],
+    "extraResources": [
+      "dist",
+      "dist-server",
+      {
+        "to": "node_modules/playwright-core",
+        "from": "node_modules/playwright-core"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "JARVIS-Public-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "JARVIS",
+      "artifactName": "JARVIS-Public-Setup-${version}.${ext}"
+    }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sidthelegend8-spec/JARVIS-Public.git"
+  }
+}

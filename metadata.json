@@ -1,0 +1,7 @@
+{
+  "name": "JARVIS",
+  "description": "A simple voice agent powered by Gemini Live API",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

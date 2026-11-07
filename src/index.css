@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=JetBrains+Mono:wght@100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Share Tech Mono", monospace;
+}
+
+body {
+  background-color: #000;
+  color: #e5e5e5;
+}
+
+/* -- Research tab: the board ------------------------------------------------ */
+
+.research-board {
+  background-image:
+    radial-gradient(ellipse at center, rgba(61, 155, 255, 0.08), transparent 62%),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  background-attachment: local;
+}
+
+.research-string { fill: none; stroke: #e5484d; stroke-width: 1.6; stroke-linecap: round; opacity: 0.85;
+  stroke-dasharray: 1; stroke-dashoffset: 1; animation: research-draw 0.7s ease-out forwards; }
+.research-spark { fill: none; stroke: #ffb3b5; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 0.035 0.965;
+  stroke-dashoffset: 1; opacity: 0; animation: research-flow 2.8s linear infinite; }
+.research-related { fill: none; stroke: #e5484d; stroke-width: 1.1; stroke-dasharray: 5 5; opacity: 0;
+  animation: research-fade 0.4s 0.6s ease-out forwards, research-march 1.2s 1s linear infinite; }
+.research-label { fill: #f2a3a5; font: 10px "JetBrains Mono", monospace; paint-order: stroke; stroke: #02060d;
+  stroke-width: 5px; opacity: 0; animation: research-fade 0.4s 0.7s ease-out forwards; }
+
+.research-hub { box-shadow: 0 0 26px rgba(61, 155, 255, 0.28); }
+.research-hub::before, .research-hub::after { content: ""; position: absolute; inset: -1px; border-radius: 0.5rem;
+  border: 1px solid rgba(103, 232, 249, 0.6); opacity: 0; pointer-events: none; animation: research-ping 3.2s ease-out infinite; }
+.research-hub::after { animation-delay: 1.6s; }
+
+.research-card { transform: rotate(var(--rot, 0deg)); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s cubic-bezier(0.22, 1.2, 0.36, 1), border-color 0.2s, box-shadow 0.2s;
+  animation: research-rise 0.5s cubic-bezier(0.22, 1.2, 0.36, 1) backwards; }
+.research-card:hover, .research-card:focus-visible { z-index: 6; transform: rotate(0deg) scale(1.05);
+  border-color: rgba(103, 232, 249, 0.7); box-shadow: 0 14px 34px rgba(0, 20, 60, 0.6), 0 0 26px rgba(61, 155, 255, 0.25); }
+.research-pin { position: absolute; top: -6px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
+  background: #67e8f9; border: 2px solid #030912; box-shadow: 0 0 10px rgba(103, 232, 249, 0.8); }
+.research-reveal { animation: research-rise 0.5s ease-out backwards; }
+
+@keyframes research-draw { to { stroke-dashoffset: 0; } }
+@keyframes research-fade { to { opacity: 0.85; } }
+@keyframes research-march { to { stroke-dashoffset: -20; } }
+@keyframes research-flow { 0% { stroke-dashoffset: 1; opacity: 0; } 8% { opacity: 1; } 85% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes research-ping { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 0; transform: scale(1.3, 1.6); } }
+@keyframes research-rise { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .research-string, .research-related, .research-label, .research-card, .research-reveal { animation: none; opacity: 0.85; stroke-dashoffset: 0; }
+  .research-spark, .research-hub::before, .research-hub::after { display: none; }
+}
