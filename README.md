@@ -11,7 +11,7 @@ All you need is a Windows PC, a microphone, and a free Gemini key from Google.
 ## 1. Download and install (no coding needed)
 
 1. Open the **[Releases page](https://github.com/sidthelegend8-spec/JARVIS-Public/releases/latest)**.
-2. Under **Assets**, click **`JARVIS-Public-Setup-1.0.0.exe`** to download it (about 90 MB).
+2. Under **Assets**, click **`JARVIS-Public-Setup-1.0.0.exe`** to download it (about 85 MB).
 3. Double-click the downloaded file.
 4. Windows may show a blue box saying **"Windows protected your PC"**. This appears for apps that are not
    code-signed (signing certificates cost money; the code is all here to read). Click **More info**, then
